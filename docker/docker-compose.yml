@@ -2,19 +2,17 @@ version: '2'
 services:
   ssh-honeypot:
     image: 'local/ssh-honeypot:latest'
+    restart: unless-stopped
     build: .
     ports:
       - '22:2022'
     volumes:
-      - log:/home/honeycomb/log
-      - rsa:/home/honeycomb/rsa     
+      - ./ssh-honeypot.log:/home/honeycomb/log
+      - rsa:/home/honeycomb/rsa
     networks:
-      default: 
-    restart: unless-stopped
+      default:
 
 volumes:
-  log:
-    driver: local
   rsa:
     driver: local
 
